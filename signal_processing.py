@@ -67,15 +67,28 @@ plt.ylabel("Probability")
 
 cum_numb=np.zeros(shape=(n_bins))
 
-found=0
+found0=0
+found1=0
+found2=0
+found3=0
 
 for i in range(n_bins):
     cum_numb[i]=np.sum(numb[0:i])
-    if cum_numb[i]>=0.9995 and found==0:
-        found=1
-        print "95% confidence is", (numb_vals[i-1]+numb_vals[i])/2.0
+    if cum_numb[i]>=0.9995 and found0==0:
+        found0=1
+        print "95% confidence level is", (numb_vals[i-1]+numb_vals[i])/2.0
         ninefive_conf=(numb_vals[i-1]+numb_vals[i])/2.0
+    if cum_numb[i]>=0.16 and found1==0:
+        found1=1
+        print "lower 1-sigma limit is", numb_vals[i]
+    if cum_numb[i]>=0.84 and found2==0:
+        found2=1
+        print "upper 1-sigma limit is", numb_vals[i]
+    if cum_numb[i]>=0.50 and found3==0:
+        found3=1
+        print "mean value is", numb_vals[i]
 
+            
 plt.subplot(212)
 plt.plot(numb_vals,cum_numb)
 plt.xlabel("Power")
